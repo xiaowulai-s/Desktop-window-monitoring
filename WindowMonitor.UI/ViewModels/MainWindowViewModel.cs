@@ -243,10 +243,12 @@ namespace WindowMonitor.UI.ViewModels
 
         private void OnLogEntryReceived(object? sender, LogEntry logEntry)
         {
+            Business.DebugLogger.Log($"[ViewModel] OnLogEntryReceived: {logEntry.EventType}");
             _dispatcher.Invoke(() =>
             {
                 LogEntries.Insert(0, logEntry);
-                
+                Business.DebugLogger.Log($"[ViewModel] LogEntries.Count = {LogEntries.Count}");
+
                 // Keep only the list manageable
                 while (LogEntries.Count > 1000)
                 {

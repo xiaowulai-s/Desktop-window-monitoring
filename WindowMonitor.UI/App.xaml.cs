@@ -44,6 +44,10 @@ public partial class App : Application
 
         base.OnStartup(e);
 
+        // Clear debug log on startup
+        WindowMonitor.Business.DebugLogger.Clear();
+        WindowMonitor.Business.DebugLogger.Log("[App] Application started");
+
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
             var exception = args.ExceptionObject as Exception;

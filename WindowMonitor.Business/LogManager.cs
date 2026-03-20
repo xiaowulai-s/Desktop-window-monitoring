@@ -76,10 +76,16 @@ namespace WindowMonitor.Business
             if (logEntry == null)
                 return;
 
+            DebugLogger.Log($"[LogManager] WriteLog called: {logEntry.EventType}, Level={logEntry.Level}, CurrentLevel={_currentLogLevel}");
+
             if (!ShouldLog(logEntry.Level))
+            {
+                DebugLogger.Log($"[LogManager] Log filtered by level");
                 return;
+            }
 
             _logBuffer.Add(logEntry);
+            DebugLogger.Log($"[LogManager] Log added to buffer");
         }
 
         public void SetLogLevel(LogLevel level)

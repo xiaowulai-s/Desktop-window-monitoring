@@ -30,3 +30,12 @@
 ### 修改的文件
 - WindowMonitor.Business/MonitorEngine.cs (修复递归调用Bug)
 - 其他文件见 Git 提交记录
+
+### 项目文档优化
+- 分析现有实现与文档的差异
+- 更新文档使其与实际实现一致：
+  - .NET 6.0 -> 8.0
+  - Microsoft.Data.Sqlite 版本更新
+  - 数据库列名 RawWindowInfoJson 与文档对齐
+  - 操作系统要求更新为 Windows 10/11
+  - 添加 RawWindowInfoJson 设计说明

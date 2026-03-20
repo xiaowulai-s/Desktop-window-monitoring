@@ -1,6 +1,6 @@
 # WindowMonitor 项目文档
 
-**版本**：v1.0
+**版本**：v1.1
 
 **更新日期**：2026-03-20
 
@@ -120,7 +120,30 @@ public enum LogLevel { Debug, Info, Warning, Error, Critical }
 
 ---
 
-#### 3.1.4 ConfigManager（配置管理器）
+#### 3.1.4 DebugLogger（调试日志）
+
+**文件**：`DebugLogger.cs`
+
+**职责**：统一的调试日志输出，支持文件日志和控制台日志，采用静态单例模式。
+
+**核心功能**：
+- `Log(message)`：输出日志到文件和控制台
+- `Clear()`：清空日志文件
+- `GetLogPath()`：获取日志文件路径
+
+**日志输出**：
+- 日志文件路径：`%TEMP%/WindowMonitor_debug.log`
+- 同时输出到 `System.Diagnostics.Debug.WriteLine`
+- 线程安全，使用锁机制
+
+**使用场景**：
+- 诊断窗口事件是否正确触发
+- 跟踪日志在各个模块间的流转
+- 排查跨层调用问题
+
+---
+
+#### 3.1.5 ConfigManager（配置管理器）
 
 **文件**：`ConfigManager.cs`
 

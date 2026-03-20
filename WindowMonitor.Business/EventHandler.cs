@@ -77,6 +77,7 @@ namespace WindowMonitor.Business
             if (windowEvent == null)
                 return;
 
+            DebugLogger.Log($"[EventHandler] ProcessEvent: {windowEvent.EventType}");
             _eventQueue.Add(windowEvent);
         }
 
@@ -130,8 +131,10 @@ namespace WindowMonitor.Business
 
         private void ProcessEventInternal(WindowEvent windowEvent)
         {
+            DebugLogger.Log($"[EventHandler] ProcessEventInternal: {windowEvent.EventType}");
             // Create log entry
             var logEntry = LogEntry.FromWindowEvent(windowEvent);
+            DebugLogger.Log($"[EventHandler] LogEntry created: {logEntry.EventType}, Level: {logEntry.Level}");
             OnLogEntryCreated(logEntry);
 
             // Notify registered handlers

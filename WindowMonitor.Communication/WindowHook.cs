@@ -311,27 +311,34 @@ namespace WindowMonitor.Communication
             {
                 if (_monitorMode == MonitorMode.AllWindows)
                 {
+                    System.Diagnostics.Debug.WriteLine($"[WindowHook] ShouldProcess: ALL_WINDOWS mode, allowing all");
                     return true;
                 }
 
                 if (_targetWindowHandle == IntPtr.Zero && string.IsNullOrEmpty(_targetWindowTitle))
                 {
+                    System.Diagnostics.Debug.WriteLine($"[WindowHook] ShouldProcess: SINGLE mode but no target, allowing all");
                     return true;
                 }
 
                 if (windowEvent.WindowInfo == null)
                 {
+                    System.Diagnostics.Debug.WriteLine($"[WindowHook] ShouldProcess: WindowInfo is null");
                     return false;
                 }
 
                 if (_targetWindowHandle != IntPtr.Zero)
                 {
-                    return windowEvent.WindowInfo.Hwnd == _targetWindowHandle;
+                    bool match = windowEvent.WindowInfo.Hwnd == _targetWindowHandle;
+                    System.Diagnostics.Debug.WriteLine($"[WindowHook] ShouldProcess: SINGLE by HWND - event hwnd={windowEvent.WindowInfo.Hwnd}, target={_targetWindowHandle}, match={match}");
+                    return match;
                 }
 
                 if (!string.IsNullOrEmpty(_targetWindowTitle))
                 {
-                    return windowEvent.WindowInfo.Title == _targetWindowTitle;
+                    bool match = windowEvent.WindowInfo.Title == _targetWindowTitle;
+                    System.Diagnostics.Debug.WriteLine($"[WindowHook] ShouldProcess: SINGLE by TITLE - event='{windowEvent.WindowInfo.Title}', target='{_targetWindowTitle}', match={match}");
+                    return match;
                 }
 
                 return true;
@@ -456,6 +463,7 @@ namespace WindowMonitor.Communication
 
         protected virtual void OnWindowEventOccurred(WindowEvent e)
         {
+            System.Diagnostics.Debug.WriteLine($"[WindowHook] OnWindowEventOccurred: {e.EventType} for {e.WindowInfo?.Title}");
             WindowEventOccurred?.Invoke(this, e);
         }
 

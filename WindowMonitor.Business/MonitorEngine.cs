@@ -219,6 +219,8 @@ namespace WindowMonitor.Business
             if (State == MonitorState.Paused)
                 return;
 
+            DebugLogger.Log($"[MonitorEngine] Event received: {e.EventType} for window: {e.WindowInfo?.Title}");
+
             // Forward to event handler
             _eventHandler.ProcessEvent(e);
 
@@ -228,6 +230,7 @@ namespace WindowMonitor.Business
 
         private void OnLogEntryCreated(object sender, LogEntry e)
         {
+            DebugLogger.Log($"[MonitorEngine] OnLogEntryCreated: {e.EventType}");
             // Forward to log manager
             LogManager.Instance.WriteLog(e);
 
