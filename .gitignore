@@ -1,0 +1,53 @@
+# Build results
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+*.sqlite
+
+# Local config (may contain sensitive data)
+*.local.json
+config.local.json
+
+# Test results
+TestResults/
+*.trx
+
+# Build outputs
+*.dll
+*.exe
+*.pdb
+*.cache
+*.so

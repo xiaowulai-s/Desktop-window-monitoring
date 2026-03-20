@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="WindowMonitor.Business/WindowMonitor.Business.csproj" />
+  <Project Path="WindowMonitor.Communication/WindowMonitor.Communication.csproj" />
+  <Project Path="WindowMonitor.Data/WindowMonitor.Data.csproj" />
+  <Project Path="WindowMonitor.Tests/WindowMonitor.Tests.csproj" />
+  <Project Path="WindowMonitor.UI/WindowMonitor.UI.csproj" />
+</Solution>
