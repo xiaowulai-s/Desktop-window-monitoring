@@ -18,7 +18,7 @@ namespace WindowMonitor.Business
 
         private readonly ConcurrentDictionary<string, object> _configValues;
         private readonly object _lockObject = new object();
-        private string _configFilePath;
+        private string _configFilePath = string.Empty;
 
         #endregion
 
@@ -126,7 +126,7 @@ namespace WindowMonitor.Business
 
         public T GetConfig<T>(string key, T defaultValue = default(T))
         {
-            if (_configValues.TryGetValue(key, out object value))
+            if (_configValues.TryGetValue(key, out object? value) && value != null)
             {
                 try
                 {

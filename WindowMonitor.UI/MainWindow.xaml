@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowMonitor.UI"
+        xmlns:converters="clr-namespace:WindowMonitor.UI.Converters"
         mc:Ignorable="d"
         Title="Windows桌面窗口监控" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:HwndMatchConverter x:Key="HwndMatchConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -59,6 +63,8 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding MonitoringSingleWindow}" Value="True">
                                             <Setter Property="Text" Value="单个窗口"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding MonitoringSingleWindow}" Value="True">
                                             <Setter Property="Foreground" Value="Orange"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -96,8 +102,15 @@
                         </DataGrid.Columns>
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="Transparent"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Hwnd}" Value="{Binding DataContext.TargetWindow.Hwnd, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{StaticResource HwndMatchConverter}">
+                                                <Binding Path="Hwnd"/>
+                                                <Binding Path="DataContext.TargetWindow.Hwnd" RelativeSource="{RelativeSource AncestorType=DataGrid}"/>
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
                                         <Setter Property="Background" Value="#FFEEDC82"/>
                                         <Setter Property="FontWeight" Value="Bold"/>
                                     </DataTrigger>

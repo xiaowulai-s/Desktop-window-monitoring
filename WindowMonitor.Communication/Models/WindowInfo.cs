@@ -6,11 +6,11 @@ namespace WindowMonitor.Communication.Models
     public class WindowInfo
     {
         public IntPtr Hwnd { get; set; }
-        public string Title { get; set; }
-        public string ClassName { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string ClassName { get; set; } = string.Empty;
         public uint ProcessId { get; set; }
-        public string ProcessName { get; set; }
-        public Rectangle Rect { get; set; }
+        public string ProcessName { get; set; } = string.Empty;
+        public Rectangle Rect { get; set; } = new Rectangle();
         public bool Visible { get; set; }
         public bool Active { get; set; }
         public IntPtr ParentHwnd { get; set; }
@@ -19,7 +19,6 @@ namespace WindowMonitor.Communication.Models
 
         public WindowInfo()
         {
-            Rect = new Rectangle();
             CreationTime = DateTime.Now;
         }
 
@@ -28,7 +27,7 @@ namespace WindowMonitor.Communication.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public static WindowInfo FromJson(string json)
+        public static WindowInfo? FromJson(string json)
         {
             return JsonConvert.DeserializeObject<WindowInfo>(json);
         }

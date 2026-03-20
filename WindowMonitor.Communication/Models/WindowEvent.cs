@@ -19,17 +19,16 @@ namespace WindowMonitor.Communication.Models
 
     public class WindowEvent
     {
-        public string EventId { get; set; }
+        public string EventId { get; set; } = string.Empty;
         public WindowEventType EventType { get; set; }
-        public WindowInfo WindowInfo { get; set; }
+        public WindowInfo WindowInfo { get; set; } = new WindowInfo();
         public DateTime Timestamp { get; set; }
-        public string Details { get; set; }
+        public string Details { get; set; } = string.Empty;
 
         public WindowEvent()
         {
             EventId = Guid.NewGuid().ToString();
             Timestamp = DateTime.Now;
-            WindowInfo = new WindowInfo();
         }
 
         public WindowEvent(WindowEventType eventType, WindowInfo windowInfo) : this()
@@ -43,7 +42,7 @@ namespace WindowMonitor.Communication.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public static WindowEvent FromJson(string json)
+        public static WindowEvent? FromJson(string json)
         {
             return JsonConvert.DeserializeObject<WindowEvent>(json);
         }

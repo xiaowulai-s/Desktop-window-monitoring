@@ -114,7 +114,7 @@ namespace WindowMonitor.Business
             _writeThread?.Join(TimeSpan.FromSeconds(5));
         }
 
-        public List<LogEntry> QueryLogs(Func<LogEntry, bool> filter = null)
+        public List<LogEntry> QueryLogs(Func<LogEntry, bool>? filter = null)
         {
             lock (_lockObject)
             {

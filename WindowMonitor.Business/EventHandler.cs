@@ -16,7 +16,7 @@ namespace WindowMonitor.Business
     {
         #region Events
 
-        public event EventHandler<LogEntry> LogEntryCreated;
+        public event EventHandler<LogEntry>? LogEntryCreated;
 
         #endregion
 

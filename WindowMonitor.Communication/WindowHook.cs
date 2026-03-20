@@ -159,9 +159,9 @@ namespace WindowMonitor.Communication
             }
         }
 
-        public WindowInfo GetWindowInfo(IntPtr hwnd)
+        public WindowInfo? GetWindowInfo(IntPtr hwnd)
         {
-            if (!WindowsApi.IsWindow(hwnd))
+            if (hwnd == IntPtr.Zero || !WindowsApi.IsWindow(hwnd))
                 return null;
 
             var windowInfo = new WindowInfo
@@ -261,7 +261,7 @@ namespace WindowMonitor.Communication
 
         private void ProcessWinEvent(uint eventType, IntPtr hwnd)
         {
-            WindowEvent windowEvent = null;
+            WindowEvent? windowEvent = null;
 
             switch (eventType)
             {
@@ -338,7 +338,7 @@ namespace WindowMonitor.Communication
             }
         }
 
-        private WindowEvent CreateWindowEvent(WindowEventType eventType, IntPtr hwnd)
+        private WindowEvent? CreateWindowEvent(WindowEventType eventType, IntPtr hwnd)
         {
             var windowInfo = GetWindowInfo(hwnd);
             if (windowInfo == null)
@@ -350,7 +350,7 @@ namespace WindowMonitor.Communication
             return new WindowEvent(eventType, windowInfo);
         }
 
-        private WindowEvent HandleLocationChange(IntPtr hwnd)
+        private WindowEvent? HandleLocationChange(IntPtr hwnd)
         {
             var currentInfo = GetWindowInfo(hwnd);
             if (currentInfo == null)
@@ -384,12 +384,12 @@ namespace WindowMonitor.Communication
             return new WindowEvent(eventType, currentInfo);
         }
 
-        private WindowEvent HandleForegroundChange(IntPtr hwnd)
+        private WindowEvent? HandleForegroundChange(IntPtr hwnd)
         {
             if (hwnd == _lastForegroundWindow)
                 return null;
 
-            WindowEvent deactivateEvent = null;
+            WindowEvent? deactivateEvent = null;
             if (_lastForegroundWindow != IntPtr.Zero && _windowCache.ContainsKey(_lastForegroundWindow))
             {
                 var deactivateInfo = _windowCache[_lastForegroundWindow];
