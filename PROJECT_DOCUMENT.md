@@ -11,11 +11,11 @@
 **项目目标**：实时监控Windows操作系统中所有窗口的创建、销毁、状态变化等事件，并输出详细的执行日志，用于辅助AI进行窗口程序开发过程中的错误排查和问题修复。
 
 **技术栈**：
-- C# / .NET 6.0
+- C# / .NET 8.0
 - WPF (Windows Presentation Foundation)
 - SQLite 3.40+（日志存储）
 - Newtonsoft.Json 13.0+（JSON处理）
-- Microsoft.Data.Sqlite（数据库访问）
+- Microsoft.Data.Sqlite 8.0+（数据库访问）
 
 ---
 
@@ -312,7 +312,7 @@ CREATE TABLE LogEntries (
     ProcessName TEXT,
     ProcessId INTEGER,
     Hwnd TEXT,
-    WindowInfoJson TEXT,
+    RawWindowInfoJson TEXT,
     Details TEXT,
     SystemInfoJson TEXT
 );
@@ -321,6 +321,8 @@ CREATE INDEX idx_log_entries_timestamp ON LogEntries(Timestamp);
 CREATE INDEX idx_log_entries_event_type ON LogEntries(EventType);
 CREATE INDEX idx_log_entries_level ON LogEntries(Level);
 ```
+
+> **注**：`RawWindowInfoJson` 字段存储完整的窗口信息JSON，包含所有窗口属性（类名、位置、尺寸、可见状态、激活状态等），由 `WindowInfo.ToJson()` 生成。
 
 ---
 
@@ -524,6 +526,6 @@ CREATE INDEX idx_log_entries_level ON LogEntries(Level);
 
 ## 10. 运行要求
 
-- **操作系统**：Windows 7/8/10/11
-- **.NET**：.NET 6.0 Runtime
+- **操作系统**：Windows 10/11
+- **.NET**：.NET 8.0 Runtime
 - **权限**：需要管理员权限（访问窗口钩子）
