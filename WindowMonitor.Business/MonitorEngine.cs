@@ -222,8 +222,8 @@ namespace WindowMonitor.Business
             // Forward to event handler
             _eventHandler.ProcessEvent(e);
 
-            // Notify listeners
-            OnWindowEventOccurred(e);
+            // Notify listeners - use the protected virtual method to fire the event
+            WindowEventOccurred?.Invoke(this, e);
         }
 
         private void OnLogEntryCreated(object sender, LogEntry e)
